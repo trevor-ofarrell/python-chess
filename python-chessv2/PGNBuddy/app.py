@@ -43,6 +43,10 @@ def profile():
 def login():
     return render_template('login.html')
 
+@app.route('/signup')
+def signup():
+    return render_template('signup.html')
+
 @app.errorhandler(404)
 def page_not_found(error):
     """error handler for 404 not found"""

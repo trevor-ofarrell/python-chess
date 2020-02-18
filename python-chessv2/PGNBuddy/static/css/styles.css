@@ -1,0 +1,34 @@
+body{
+    font-family: Raleway;
+    color: black;
+    background: grey;
+    margin: 10px 30px;
+}
+#homepage{
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 10px 20px;
+    background: grey;
+    border-radius: 4px;
+}
+label{
+    font-weight: bold;
+}
+.title{
+    color: #fff;
+    text-align: center;
+    font-size: 48px;
+}
+#homepage h1{
+    text-align: center;
+}
+form{
+    max-width: 350px;
+    margin: 30px auto;
+}
+
+#file{
+    position: absolute;
+    margin-left: 120px;
+    text-align: center;
+}

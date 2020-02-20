@@ -41,13 +41,17 @@ Released   : 20140314
 	<div class="titlebox-dash">
 		<div id="banner" class="container">
 			<div class="title">
-				<form action="/uploadpgn" method="POST" enctype="multipart/form-data">
+				<form action="{{ url_for('main.uploadpgn') }}" method="POST" enctype="multipart/form-data">
 					<div>
 						<label class="button" id="uploadpgn">
-							<input type="file" class="button" id="hiddenform" name="uppgn">Upload PGN 
+							<input type="file" class="button" id="hiddenform" name="file">Upload PGN 
 						</label>
 					</div>
 				</form>
+			<div>
+				<a href="{{ url_for('main.lichessupload') }}" title="Import PGN from lichess" class='button' id='uploadlichess'>
+					Import PGN from lichess</a>
+			</div>
 				<h2>User Dashboard under construction</h2>
 				<span class="byline">Coming Soon</span>
 			</div>

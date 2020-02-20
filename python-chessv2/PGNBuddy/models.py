@@ -5,8 +5,6 @@ from flask_login import UserMixin
 from . import db
 
 class User(UserMixin, db.Model):
-    __tablename__ = 'users'
-    __table_args__ = {'extend_existing': True}
     id = db.Column(db.Integer, primary_key=True) # primary keys are required by SQLAlchemy
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
@@ -15,8 +13,8 @@ class User(UserMixin, db.Model):
 class pgn(User):
     __tablename__ = 'pgn'
     __table_args__ = {'extend_existing': True}
-    userId = db.Column(db.Integer, db.ForeignKey('users.id'))
-    owner = db.relationship('User',backref = 'users')
-    id = db.Column(db.Integer, primary_key=True)
+    userId = db.Column(db.Integer, db.ForeignKey('user.id'))
+    owner = db.relationship('User',backref = 'user')
+    pgnId = db.Column(db.Integer, primary_key=True)
     game = db.Column(db.String(9999))
-    name = db.Column(db.String(1000))
+    fileName = db.Column(db.String(1000))

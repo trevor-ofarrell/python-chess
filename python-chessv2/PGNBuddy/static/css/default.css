@@ -176,7 +176,8 @@
 	{
 		position: absolute;
 		top: 5px;
-    	left: 5px;
+		left: 5px;
+		width: 6.9%;
     	text-align: left;
 		margin-left: 20px;
 		border: 1px solid #ccc;
@@ -184,6 +185,40 @@
     	padding: 6px 12px;
     	cursor: pointer;
 	}
+
+	#uploadlichess
+	{
+		position: absolute;
+		top: 100px;
+		left: 5px;
+		width: 6.9%;
+    	text-align: left;
+		margin-left: 20px;
+		border: 1px solid #ccc;
+    	display: inline-block;
+    	padding: 6px 12px;
+    	cursor: pointer;
+	}
+
+	input {
+		width: 40%;
+		height: 60%;
+		margin-bottom: 5vh;
+		background-color:transparent;
+		border-radius: 5px;
+		outline: none;
+		color: white;
+		caret-color: white;
+	  }
+
+	  input[type=submit] {
+		background: rgba(255,255,255,.2);
+		width: 20%;
+		padding: 2vh;
+		border: none;
+		cursor: pointer;
+		border-radius: 4px 4px;
+	  }
 
 	input[type="file"] {
 		display: none;

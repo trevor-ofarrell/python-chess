@@ -342,6 +342,11 @@
 		font-size: 2.7em;
 	}
 	
+	.hometitle
+	{
+		margin-top: -100px;
+	}
+
 	.title .byline
 	{
 		font-size: 1.3em;

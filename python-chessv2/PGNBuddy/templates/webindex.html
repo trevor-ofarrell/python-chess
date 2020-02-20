@@ -18,7 +18,7 @@ Released   : 20140314
 <meta name="description" content="" />
 <link href="http://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" />
 <link href="static/css/default.css" rel="stylesheet" type="text/css" media="all" />
-<link href="ststic/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+<link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
@@ -37,15 +37,17 @@ Released   : 20140314
 			</ul>
 		</div>
 	</div>
-	<div id="banner" class="container">
-		<div class="title">
-			<h2>Store, Manage, and Analyze your PGNs from one place</h2>
-			<span class="byline">Made by chess players for chess players</span>
+	<div class="titlebox-dash">
+		<div id="banner" class="container">
+			<div class="title">
+				<h2 class="hometitle">Store, Manage, and Analyze your PGN files. All from one place</h2>
+				<span class="byline">Made by chess players for chess players</span>
+			</div>
+				<ul class="actions">
+					<li><a href="{{ url_for('auth.signup') }}" class="button">Sign Up</a></li>
+					<li><a href="{{ url_for('auth.login') }}" class="button">Login</a></li>
+				</ul>
 		</div>
-			<ul class="actions">
-				<li><a href="{{ url_for('auth.signup') }}" class="button">Sign Up</a></li>
-				<li><a href="{{ url_for('auth.login') }}" class="button">Login</a></li>
-			</ul>
 	</div>
 	<div> 
 		{% block content %}

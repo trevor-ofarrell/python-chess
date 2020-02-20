@@ -171,6 +171,23 @@
 		font-size: 1em;
 		color: #FFF;
 	}
+
+	#uploadpgn
+	{
+		position: absolute;
+		top: 5px;
+    	left: 5px;
+    	text-align: left;
+		margin-left: 20px;
+		border: 1px solid #ccc;
+    	display: inline-block;
+    	padding: 6px 12px;
+    	cursor: pointer;
+	}
+
+	input[type="file"] {
+		display: none;
+	}
 	
 	.button-alt
 	{
@@ -256,6 +273,33 @@
 	{
 		margin-bottom: 3em;
 		padding-left: 15px;
+	}
+	
+	.titlebox
+	{
+		position: relative;
+		margin-left: 40px;
+		width: 80%;
+		height: 100px;
+		top: 0px;
+    	left: 0px;
+    	background-color: rgba(60, 56, 56, 0.7);
+		padding: 70px;
+		border-radius: 35px;
+	}
+
+	.titlebox-dash
+	{
+		position: relative;
+		margin-left: 55px;
+		margin-top: -60px;
+		width: 85%;
+		height: 450px;
+		top: 0px;
+    	left: 0px;
+    	background-color: rgba(0, 0, 0, 0.84);
+		padding: 70px;
+		border-radius: 15px;
 	}
 	
 	.title h2

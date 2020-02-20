@@ -22,3 +22,8 @@ def profile():
 @main.route('/dashboard')
 def dashboard():
     return render_template('user_dashboard.html')
+
+@main.route('/dashboard', methods=['POST', 'GET'])
+def uploadpgn():
+    if request.method == 'POST':
+        new_game = pgn()

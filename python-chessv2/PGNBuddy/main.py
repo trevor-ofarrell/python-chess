@@ -38,7 +38,20 @@ def lichessupload():
         new_pgn = pgn(game=re.text, fileName=game_name)
         db.session.add(new_pgn)
         db.session.commit()
-        return render_template('user_dashboard.html')
+        return redirect(url_for('main.dashboard'))
+ 
+    return render_template('lichessupload.html')
+
+@main.route('/lichessliterate', methods=['POST', 'GET'])
+def lichessliterate():
+    if request.method == 'POST':
+        text = request.form['text']
+        re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',text,'literate=true'))
+        game_name = text
+        new_pgn = pgn(game=re.text, fileName=game_name)
+        db.session.add(new_pgn)
+        db.session.commit()
+        return redirect(url_for('main.dashboard'))
  
     return render_template('lichessupload.html')
 

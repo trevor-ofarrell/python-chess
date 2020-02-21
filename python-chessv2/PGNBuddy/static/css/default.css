@@ -199,6 +199,20 @@
     	cursor: pointer;
 	}
 
+	#lichessliterate
+	{
+		position: absolute;
+		top: 215px;
+		left: 5px;
+		width: 6.9%;
+    	text-align: left;
+		margin-left: 20px;
+		border: 1px solid #ccc;
+    	display: inline-block;
+    	padding: 6px 12px;
+    	cursor: pointer;
+	}
+
 	input {
 		width: 40%;
 		height: 60%;

@@ -23,7 +23,11 @@ def profile():
 
 @main.route('/dashboard')
 def dashboard():
-    return render_template('user_dashboard.html')
+    gameslist = []
+    games = db.session.query(pgn).all()
+    for game in games:
+        gameslist.append(game.game)
+    return render_template('user_dashboard.html', games=gameslist)
 
 @main.route('/lichessupload', methods=['POST', 'GET'])
 def lichessupload():
@@ -38,12 +42,10 @@ def lichessupload():
  
     return render_template('lichessupload.html')
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ['pgn']
-
-@main.route('/uploadpgn', methods=['POST'])
+@main.route('/uploadpgn', methods=['POST', 'GET'])
 def uploadpgn():
     if request.method == 'POST':
+        return render_template('dashboard.html')
         if 'file' not in request.files:
             flash('No file found')
             return redirect(request.url)
@@ -53,11 +55,14 @@ def uploadpgn():
             flash('No selected file')
             return redirect(request.url)
 
-        if file and allowed_file(file.filename):
+        if file:
             with open(file, 'r') as fp:
                 filedata = fp.read()
                 filename = secure_filename(file.filename)      
-                new_pgn = pgn(game=str(filedata), fileName=str(filename))
-                db.session.add(new_pgn)
-                db.session.commit()
+            new_pgn = pgn(game=filedata, fileName=filename)
+            db.session.add(new_pgn)
+            db.session.commit()
     return render_template('profile.html')
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ['pgn']

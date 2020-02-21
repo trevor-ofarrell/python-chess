@@ -44,19 +44,25 @@ Released   : 20140314
 				<form action="{{ url_for('main.uploadpgn') }}" method="POST" enctype="multipart/form-data">
 					<div>
 						<label class="button" id="uploadpgn">
-							<input type="file" class="button" id="hiddenform" name="file">Upload PGN 
+							<input type="file" accept=".pgn" class="button" id="hiddenform" name="file">Upload PGN 
 						</label>
 					</div>
 				</form>
 			<div>
 				<a href="{{ url_for('main.lichessupload') }}" title="Import PGN from lichess" class='button' id='uploadlichess'>
 					Import PGN from lichess</a>
-			</div>
-				<h2>User Dashboard under construction</h2>
-				<span class="byline">Coming Soon</span>
+				<h3 class="gamedb">My Uploads</h3>
+					<div class="gamelist">
+							<ul>
+								{% for game in games %}
+								<li><span>{{ game }}</span></li>
+								<br>
+								{% endfor %}
+							</ul>
+						</div>
 			</div>
 		</div>
-	</div>
+</div>
 </div>
 <div id="copyright" class="container">
 		<p>&copy; PGNBuddy under GPL licensing. All rights reserved.</a>.</p>

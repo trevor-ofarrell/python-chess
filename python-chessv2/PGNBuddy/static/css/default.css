@@ -49,7 +49,6 @@
 	
 	.container
 	{
-		overflow: hidden;
 		margin: 0em auto;
 		width: 1200px;
 	}
@@ -307,7 +306,8 @@
 	.title
 	{
 		margin-bottom: 3em;
-		padding-left: 15px;
+		padding-left: 65px;
+		width: 1000px;
 	}
 	
 	.titlebox
@@ -346,7 +346,6 @@
 	{
 		margin-top: -100px;
 	}
-
 	.title .byline
 	{
 		font-size: 1.3em;
@@ -489,6 +488,25 @@
 	.banner
 	{
 		margin-bottom: 5em;
+	}
+
+	.gamelist
+	{
+		position: relative;
+		margin-left: 980px;
+		margin-top: 15px;
+		top: 5px;
+		right: 10px;
+		width: 330px;
+		height: 500px;
+		overflow-y: scroll;
+	}
+	.gamedb
+	{
+		text-align: right;
+		z-index: 1;
+		margin-right: -185px;
+		margin-top: -210px;
 	}
 
 /*********************************************************************************/

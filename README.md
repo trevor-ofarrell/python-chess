@@ -1,3 +1,3 @@
 ## PGNBuddy
-Store all your PGn files(playable game notation) in one place.
+Store all your PGN files(playable game notation) in one place.
 Import from lichess or upload from your file system.

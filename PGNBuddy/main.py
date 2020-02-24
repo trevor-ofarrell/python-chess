@@ -32,10 +32,12 @@ def dashboard():
 @main.route('/lichessupload', methods=['POST', 'GET'])
 def lichessupload():
     if request.method == 'POST':
-        text = request.form['text']
-        re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',text,'pgnInJson=true'))
-        game_name = text
-        new_pgn = pgn(game=re.text, fileName=game_name)
+        game_string = request.form['gamestring']
+        if request.form['name']:
+            game_name = request.form['name']
+        game_folder = request.form['folder']
+        re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',game_string,'pgnInJson=true'))
+        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder)
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
@@ -54,6 +56,23 @@ def lichessliterate():
         return redirect(url_for('main.dashboard'))
  
     return render_template('lichessupload.html')
+
+@main.route('/mydatabase', methods=['POST', 'GET'])
+def mydatabase():
+    gamelist = []
+    games = db.session.query(pgn).all()
+    for game in games:
+        gamelist.append(game.game)
+    pgnlist = []
+    pgns = db.session.query(pgn).all()
+    for pg in pgns:
+        pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder})
+    folderlist = []
+    folders = db.session.query(pgn.folder).all()
+    for folder in folders:
+        folderlist.append(str(folder))
+    sorted(folderlist)
+    return render_template('users_database.html', games=gamelist, folders=folderlist, pgnlist=pgnlist)
 
 @main.route('/uploadpgn', methods=['POST', 'GET'])
 def uploadpgn():

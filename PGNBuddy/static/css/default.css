@@ -213,6 +213,20 @@
     	cursor: pointer;
 	}
 
+	#viewdb
+	{
+		position: absolute;
+		top: 345px;
+		left: 5px;
+		width: 6.9%;
+    	text-align: left;
+		margin-left: 20px;
+		border: 1px solid #ccc;
+    	display: inline-block;
+    	padding: 6px 12px;
+    	cursor: pointer;
+	}
+
 	input {
 		width: 40%;
 		height: 60%;
@@ -521,6 +535,39 @@
 		z-index: 1;
 		margin-right: -185px;
 		margin-top: -210px;
+	}
+
+	.userdatabase
+	{
+		position: relative;
+		overflow-y: scroll;
+		width: 100%;
+		height: 500px;
+		margin-top: -200px;
+	}
+
+	.dbbutton
+	{
+		background-color: #eee;
+		color: #444;
+		cursor: pointer;
+		padding: 18px;
+		width: 100%;
+		border: none;
+		text-align: left;
+		outline: none;
+		font-size: 15px;
+	}
+
+	.activedb, .dbbutton:hover {
+		background-color: #ccc;
+	}
+
+	.collapsibleli
+	{
+		padding: 0 18px;
+		display: none;
+		background-color: #f1f1f1;
 	}
 
 /*********************************************************************************/

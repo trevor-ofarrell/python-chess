@@ -19,7 +19,11 @@ Released   : 20140314
 <link href="http://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" />
 <link href="static/css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
-
+<script>
+    $('.dbbutton').click(function(){
+        $(this).find('.collapsibleli').toggle();
+    });
+</script>
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 </head>
@@ -39,17 +43,24 @@ Released   : 20140314
 		</div>
 	</div>
 	<div class="titlebox-dash">
-		<div id="banner" class="container">
-			<div class="title">
-                <form method="POST">
-					<input name="gamestring" placeholder="enter 8 digit string from lichess game analysis link">
-					<br>
-					<input name="name" placeholder="enter a name for this PGN, if left blank the game identifier will be used.">
-					<br>
-					<input name="folder" placeholder="enter a folder to store the game, if no folder exists, it will be created">
-					<br>
-                    <input type="submit" value="Submit">
-                </form>     
+        <div id="banner" class="container">
+			<div class="userdatabase">
+				<ul>
+                    {% for folder in folders %}
+                    <li><h2>{{ folder[2:-3] }}</h2>
+                        <ol>
+                            {% for pg in pgnlist %}
+                                {% if pg['folder'] == folder[2:-3] %}
+                                <div>    
+                                    <div class="dbbutton"><span>{{ pg['name'] }}</span></div>
+                                    <li class="collapsibleli"><p>{{ pg['game'] }}</p></li>
+                                </div>
+                                {% endif %}
+                            {% endfor %}
+                        </ol>
+                    </li>
+                    {% endfor %}
+				</ul>
 			</div>
 		</div>
 	</div>

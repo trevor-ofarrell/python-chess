@@ -19,11 +19,10 @@ Released   : 20140314
 <link href="http://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" />
 <link href="static/css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
-<script>
-    $('.dbbutton').click(function(){
-        $(this).find('.collapsibleli').toggle();
-    });
-</script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
 </head>
@@ -47,16 +46,27 @@ Released   : 20140314
 			<div class="userdatabase">
 				<ul>
                     {% for folder in folders %}
+                    <script type="text/javascript">
+                        $( function() {
+                            $( "#accordion-{{ loop.index }}" ).accordion({
+                                active: false,
+                                autoHeight: false,
+                                navigation: true,
+                                collapsible: true
+                            });
+                         });
+
+                    </script>
                     <li><h2>{{ folder[2:-3] }}</h2>
                         <ol>
-                            {% for pg in pgnlist %}
-                                {% if pg['folder'] == folder[2:-3] %}
-                                <div>    
-                                    <div class="dbbutton"><span>{{ pg['name'] }}</span></div>
-                                    <li class="collapsibleli"><p>{{ pg['game'] }}</p></li>
+                        {% for pg in pgnlist %}
+                            {% if pg['folder'] == folder[2:-3] %}
+                                <div id="accordion-{{loop.index}}">
+                                    <h2 class="dbbutton">{{ pg['name'] }}</h2>
+                                    <li class="hiden"><p>{{ pg['game'] }}</p></li>
                                 </div>
-                                {% endif %}
-                            {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                         </ol>
                     </li>
                     {% endfor %}

@@ -18,4 +18,4 @@ class pgn(User):
     pgnId = db.Column(db.Integer, primary_key=True)
     game = db.Column(db.String(9999))
     fileName = db.Column(db.String(129))
-    folder = db.Column(db.String(120), primary_key=True)
+    folder = db.Column(db.String(120))

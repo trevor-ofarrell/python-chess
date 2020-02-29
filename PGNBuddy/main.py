@@ -71,7 +71,7 @@ def mydatabase():
     folders = db.session.query(pgn.folder).all()
     for folder in folders:
         folderlist.append(str(folder))
-    sorted(folderlist)
+    folderlist = list(dict.fromkeys(folderlist))
     return render_template('users_database.html', games=gamelist, folders=folderlist, pgnlist=pgnlist)
 
 @main.route('/uploadpgn', methods=['POST', 'GET'])

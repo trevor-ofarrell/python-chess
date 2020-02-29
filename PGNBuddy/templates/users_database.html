@@ -46,21 +46,20 @@ Released   : 20140314
 			<div class="userdatabase">
 				<ul>
                     {% for folder in folders %}
-                    <script type="text/javascript">
-                        $( function() {
-                            $( "#accordion-{{ loop.index }}" ).accordion({
-                                active: false,
-                                autoHeight: false,
-                                navigation: true,
-                                collapsible: true
-                            });
-                         });
-
-                    </script>
                     <li><h2>{{ folder[2:-3] }}</h2>
                         <ol>
                         {% for pg in pgnlist %}
                             {% if pg['folder'] == folder[2:-3] %}
+                                <script type="text/javascript">
+                                    $( function() {
+                                        $( "#accordion-{{ loop.index }}" ).accordion({
+                                            active: false,
+                                            autoHeight: false,
+                                            navigation: true,
+                                            collapsible: true
+                                        });
+                                    });
+                                </script>
                                 <div id="accordion-{{loop.index}}">
                                     <h2 class="dbbutton">{{ pg['name'] }}</h2>
                                     <li class="hiden"><p>{{ pg['game'] }}</p></li>

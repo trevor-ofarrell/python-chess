@@ -61,8 +61,11 @@ Released   : 20140314
                                     });
                                 </script>
                                 <div id="accordion-{{loop.index}}">
-                                    <h2 class="dbbutton">{{ pg['name'] }}</h2>
-                                    <li class="hiden"><p>{{ pg['game'] }}</p></li>
+                                    <h2 class="dbbutton">{{ pg.name }}</h2>
+                                    <div class="hiden">
+                                        <li><p>{{ pg['game'] }}</p></li>
+                                        <iframe src="{{ pg['frame'] }}" width=600 height=397 frameborder=0></iframe>
+                                    </div>
                                 </div>
                             {% endif %}
                         {% endfor %}

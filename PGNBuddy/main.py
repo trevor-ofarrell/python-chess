@@ -6,6 +6,7 @@ from .models import pgn
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
 import requests
+import sys
 
 main = Blueprint('main', __name__)
 
@@ -36,8 +37,10 @@ def lichessupload():
         if request.form['name']:
             game_name = request.form['name']
         game_folder = request.form['folder']
+        lciframe = "https://lichess.org/embed/" + game_string + "?theme=auto&bg=auto"
+        print(lciframe, file=sys.stderr)
         re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',game_string,'pgnInJson=true'))
-        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder)
+        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
@@ -47,10 +50,11 @@ def lichessupload():
 @main.route('/lichessliterate', methods=['POST', 'GET'])
 def lichessliterate():
     if request.method == 'POST':
-        text = request.form['text']
-        re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',text,'literate=true'))
+        game_string = request.form['gamestring']
+        re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',game_string,'literate=true'))
         game_name = text
-        new_pgn = pgn(game=re.text, fileName=game_name)
+        lciframe = str("{}{}{}".format("https://lichess.org/embed/", game_string, "?theme=auto&bg=auto"))
+        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, imgframe=lciframe)
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
@@ -66,7 +70,7 @@ def mydatabase():
     pgnlist = []
     pgns = db.session.query(pgn).all()
     for pg in pgns:
-        pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder})
+        pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder, 'frame': pg.frame})
     folderlist = []
     folders = db.session.query(pgn.folder).all()
     for folder in folders:

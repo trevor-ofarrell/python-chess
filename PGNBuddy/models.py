@@ -17,5 +17,6 @@ class pgn(User):
     owner = db.relationship('User',backref = 'user')
     pgnId = db.Column(db.Integer, primary_key=True)
     game = db.Column(db.String(9999))
+    frame = db.Column(db.String(200))
     fileName = db.Column(db.String(129))
     folder = db.Column(db.String(120))

@@ -22,13 +22,32 @@ def home():
 def profile():
     return render_template('profile.html')
 
+@main.route('/deletepgn', methods=['POST'])
+def deletepgn():
+    pg = request.form['pgntodel']
+    print(pg, file=sys.stderr)
+    q = db.session.query(pgn).filter_by(pgnId=pg).one()
+    db.session.delete(q)
+    db.session.commit()
+    return redirect(url_for('main.dashboard'))
+
+
 @main.route('/dashboard')
 def dashboard():
-    gameslist = []
+    gamelist = []
     games = db.session.query(pgn).all()
     for game in games:
-        gameslist.append(game.game)
-    return render_template('user_dashboard.html', games=gameslist)
+        gamelist.append(game.game)
+    pgnlist = []
+    pgns = db.session.query(pgn).all()
+    for pg in pgns:
+        pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder, 'frame': pg.frame, 'pgnId': pg.pgnId})
+    folderlist = []
+    folders = db.session.query(pgn.folder).all()
+    for folder in folders:
+        folderlist.append(str(folder))
+    folderlist = list(dict.fromkeys(folderlist))
+    return render_template('user_dashboard.html', games=gamelist, folders=folderlist, pgnlist=pgnlist)
 
 @main.route('/lichessupload', methods=['POST', 'GET'])
 def lichessupload():
@@ -52,9 +71,12 @@ def lichessliterate():
     if request.method == 'POST':
         game_string = request.form['gamestring']
         re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',game_string,'literate=true'))
-        game_name = text
-        lciframe = str("{}{}{}".format("https://lichess.org/embed/", game_string, "?theme=auto&bg=auto"))
-        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, imgframe=lciframe)
+        if request.form['name']:
+            game_name = request.form['name']
+        game_folder = request.form['folder']
+        lciframe = "{}{}{}".format("https://lichess.org/embed", game_string, "?theme=auto&bg=auto")
+        print(lciframe, file=sys.stderr)
+        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
@@ -81,24 +103,18 @@ def mydatabase():
 @main.route('/uploadpgn', methods=['POST', 'GET'])
 def uploadpgn():
     if request.method == 'POST':
-        return render_template('dashboard.html')
-        if 'file' not in request.files:
+        if 'pgnfile' not in request.files:
             flash('No file found')
             return redirect(request.url)
 
-        file == request.files['file']
-        if file.filename == '':
+        pgnfile = request.files['pgnfile']
+        if pgnfile.filename == '':
             flash('No selected file')
             return redirect(request.url)
 
-        if file:
-            with open(file, 'r') as fp:
-                filedata = fp.read()
-                filename = secure_filename(file.filename)      
-            new_pgn = pgn(game=filedata, fileName=filename)
+        if pgnfile:
+            pgndata = pgnfile.read()    
+            new_pgn = pgn(game=pgndata, fileName="test", folder="system uploads")
             db.session.add(new_pgn)
             db.session.commit()
-    return render_template('profile.html')
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ['pgn']
+    return render_template('user_dashboard.html')

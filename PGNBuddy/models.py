@@ -14,7 +14,7 @@ class pgn(User):
     __tablename__ = 'pgn'
     __table_args__ = {'extend_existing': True}
     userId = db.Column(db.Integer, db.ForeignKey('user.id'))
-    owner = db.relationship('User',backref = 'user')
+    #owner = db.relationship('User',backref = 'user')
     pgnId = db.Column(db.Integer, primary_key=True)
     game = db.Column(db.String(9999))
     frame = db.Column(db.String(200))

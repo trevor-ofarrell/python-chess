@@ -357,7 +357,7 @@
 		margin-left: 55px;
 		margin-top: -60px;
 		width: 85%;
-		height: 450px;
+		height: 520px;
 		top: 0px;
     	left: 0px;
     	background-color: rgba(0, 0, 0, 0.84);
@@ -405,7 +405,8 @@
 
 	#header
 	{
-		padding: 5em 0em;
+		padding: 4em 0em;
+		height: -40px;
 	}
 
 /*********************************************************************************/
@@ -545,17 +546,51 @@
 		height: 500px;
 		margin-top: -200px;
 	}
+	.userdatabase2
+	{
+		position: relative;
+		overflow-y: scroll;
+		width: 1290px;
+		height: 630px;
+		margin-top: -215px;
+		border: gray;
+		border-width: 3px;
+	}
+
+	body ::-webkit-scrollbar {
+		width: 45px;
+	}
+		
+	body ::-webkit-scrollbar-track {
+	    box-shadow: inset 0 0 5px grey; 
+		border-radius: 10px;
+	}
+		
+	body ::-webkit-scrollbar-thumb {
+		background:black; 
+		border-radius: 10px;
+	}
+		
+	body ::-webkit-scrollbar-thumb:hover {
+		background:rgb(54, 56, 58); 
+	}
+
+	.accordionbutton
+	{
+		border-width: 5px;
+		border: #111111;
+	}
 
 	.dbbutton
 	{
-		background-color: #eee;
-		color: #444;
+		background-color: rgb(116, 115, 115);
+		color: rgb(22, 22, 22);
 		cursor: pointer;
 		padding: 18px;
 		width: 96%;
-		border: none;
+		border-width: 3px;
+		border: #111111;
 		text-align: left;
-		outline: none;
 		font-size: 15px;
 	}
 
@@ -566,6 +601,14 @@
 	.hiden
 	{
 		display: none;
+	}
+
+	.delpgn
+	{
+		position: relative;
+		margin-left: 900px;
+		left: 0px;
+		bottom: 0px;
 	}
 
 /*********************************************************************************/

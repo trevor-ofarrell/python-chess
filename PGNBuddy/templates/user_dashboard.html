@@ -13,12 +13,16 @@ Released   : 20140314
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 <title></title>
 <meta name="keywords" content="" />
 <meta name="description" content="" />
 <link href="http://fonts.googleapis.com/css?family=Didact+Gothic" rel="stylesheet" />
 <link href="static/css/default.css" rel="stylesheet" type="text/css" media="all" />
 <link href="static/css/fonts.css" rel="stylesheet" type="text/css" media="all" />
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 
 <!--[if IE 6]><link href="default_ie6.css" rel="stylesheet" type="text/css" /><![endif]-->
 
@@ -44,7 +48,7 @@ Released   : 20140314
 				<form action="{{ url_for('main.uploadpgn') }}" method="POST" enctype="multipart/form-data">
 					<div>
 						<label class="button" id="uploadpgn">
-							<input type="file" accept=".pgn" class="button" id="hiddenform" name="file">Upload PGN 
+							<input type="file" accept=".pgn" class="button" id="hiddenform" name="pgnfile" onchange="form.submit()">Upload PGN 
 						</label>
 					</div>
 				</form>
@@ -54,17 +58,45 @@ Released   : 20140314
 				<a href="{{ url_for('main.lichessliterate') }}" title="Import literate PGN from lichess" class='button' id='lichessliterate'>
 					Export literate PGN from lichess</a>
 				<a href="{{ url_for('main.mydatabase') }}" title="View DB" class="button" id="viewdb">
-					View My Database</a>
-				<h3 class="gamedb">Raw Uploads</h3>
-					<div class="gamelist">
+					null</a>
+					<div class="userdatabase2">
 							<ul>
-								{% for game in games %}
-								<li><span>{{ game }}</span></li>
-								<br>
+								{% for folder in folders %}
+								<li><h2 style="font-size: 20px;">{{ folder[2:-3] }}</h2>
+									<ol>
+									{% for pg in pgnlist %}
+										{% if pg['folder'] == folder[2:-3] %}
+											<script type="text/javascript">
+												$( function() {
+													$( "#accordion-{{ loop.index }}" ).accordion({
+														active: false,
+														autoHeight: false,
+														navigation: true,
+														collapsible: true
+													});
+												});
+											</script>
+											<div id="accordion-{{loop.index}}" class="accordionbutton">
+												<h2 class="dbbutton" style="font-size: 15px; border: #111111; border-width: 5px;">{{ pg.name }}</h2>
+												<div class="hiden">
+													<li><p>{{ pg['game'] }}</p></lii>
+													{% if pg['frame'] %}
+														<iframe src="{{ pg['frame'] }}" width=600 height=397 frameborder=0></iframe>
+													{% endif %}
+													<form action="{{ url_for('main.deletepgn') }}" method="post" class="delpgn">
+														<input type="hidden" value="{{ pg['pgnId'] }}" name="pgntodel" />
+														<input type="submit" value="Delete PGN. This cannot be undone." style="width: 60%;"/>
+													</form>
+												</div>
+											</div>
+										{% endif %}
+									{% endfor %}
+									</ol>
+								</li>
 								{% endfor %}
 							</ul>
-						</div>
-			</div>
+					</div>
+			    </div>
 		</div>
 </div>
 </div>

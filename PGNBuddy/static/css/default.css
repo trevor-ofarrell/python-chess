@@ -213,14 +213,29 @@
     	cursor: pointer;
 	}
 
-	#viewdb
+	#filterdb
 	{
 		position: absolute;
-		top: 345px;
+		top: 355px;
 		left: 5px;
 		width: 6.9%;
     	text-align: left;
 		margin-left: 20px;
+		border: 1px solid #ccc;
+    	display: inline-block;
+    	padding: 6px 12px;
+    	cursor: pointer;
+	}
+
+	#filterdbinput
+	{
+		position: absolute;
+		top: 120px;
+		left: -2px;
+		width: 90%;
+		height: 15px;
+    	text-align: left;
+		margin-left: 0px;
 		border: 1px solid #ccc;
     	display: inline-block;
     	padding: 6px 12px;
@@ -552,7 +567,7 @@
 		overflow-y: scroll;
 		width: 1290px;
 		height: 630px;
-		margin-top: -215px;
+		margin-top: -220px;
 		border: gray;
 		border-width: 3px;
 	}
@@ -575,27 +590,38 @@
 		background:rgb(54, 56, 58); 
 	}
 
-	.accordionbutton
-	{
-		border-width: 5px;
-		border: #111111;
-	}
-
 	.dbbutton
 	{
-		background-color: rgb(116, 115, 115);
+		background-color: rgba(239, 218, 180, 0.765);
 		color: rgb(22, 22, 22);
 		cursor: pointer;
 		padding: 18px;
 		width: 96%;
-		border-width: 3px;
-		border: #111111;
 		text-align: left;
 		font-size: 15px;
+		margin-bottom: 2px;
 	}
 
-	.activedb, .dbbutton:hover {
-		background-color: #ccc;
+	.newbutton
+	{
+		display: inline-block;
+		padding: 1em 2em 1em 2em;
+		letter-spacing: 0.10em;
+		margin-top: .3em;
+		padding: 1.40em 3em;
+		height: 5px;
+		border: 1px solid rgb(181, 181, 181);
+		border-radius: 4px;
+		text-decoration: none;
+		font-weight: 600;
+		text-align: left;
+		font-size: 1.5em;
+		color: #FFF;
+		background-color: #68686892;
+	}
+
+	.activedb, .newbutton:hover {
+		background-color: rgba(135, 135, 135, 0.765);
 	}
 
 	.hiden

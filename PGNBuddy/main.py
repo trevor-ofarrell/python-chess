@@ -31,6 +31,20 @@ def deletepgn():
     db.session.commit()
     return redirect(url_for('main.dashboard'))
 
+@main.route('/filterdb', methods=['POST'])
+def filterdb():
+    Folder = request.form['folder']
+    Folder = "{}{}{}".format('ll', Folder, 'lll')
+    gamelist = []
+    games = db.session.query(pgn).all()
+    for game in games:
+        gamelist.append(game.game)
+    pgnlist = []
+    pgns = db.session.query(pgn).filter_by(folder=Folder).all()
+    for pg in pgns:
+        pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder, 'frame': pg.frame, 'pgnId': pg.pgnId})
+    folderlist = [Folder]
+    return render_template('user_dashboard.html', games=gamelist, folders=folderlist, pgnlist=pgnlist)
 
 @main.route('/dashboard')
 def dashboard():
@@ -74,7 +88,7 @@ def lichessliterate():
         if request.form['name']:
             game_name = request.form['name']
         game_folder = request.form['folder']
-        lciframe = "{}{}{}".format("https://lichess.org/embed", game_string, "?theme=auto&bg=auto")
+        lciframe = "{}{}{}".format("https://lichess.org/embed/", game_string, "?theme=auto&bg=auto")
         print(lciframe, file=sys.stderr)
         new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
         db.session.add(new_pgn)
@@ -117,4 +131,4 @@ def uploadpgn():
             new_pgn = pgn(game=pgndata, fileName="test", folder="system uploads")
             db.session.add(new_pgn)
             db.session.commit()
-    return render_template('user_dashboard.html')
+    return redirect(url_for('main.dashboard'))

@@ -131,3 +131,19 @@ def uploadpgn():
             db.session.add(new_pgn)
             db.session.commit()
     return redirect(url_for('main.dashboard'))
+
+@main.route('/exportall', methods=['GET', 'POST'])
+def exportall():
+    if request.method == 'POST':
+        username = request.form['username']
+        folder = request.form['folder']
+        re = requests.get("{}{}".format("https://lichess.org/api/games/user/", username), stream=True)
+        for line in re.iter_lines():
+            if line in ['\n', '\r\n']:
+                if line.next in ['\n', '\r\n']:
+                    newpg = re.text.split()
+                    new_pgn = pgn(game=newpg, fileName='lichessalltest', folder='lichess all')
+                    db.session.add(new_pgn)
+        db.session.commit()
+        return redirect(url_for('main.dashboard'))
+    return render_template('lichessexportall.html')

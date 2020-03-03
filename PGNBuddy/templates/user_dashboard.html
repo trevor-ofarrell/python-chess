@@ -64,6 +64,8 @@ Released   : 20140314
 					 </label>
 				 </div>
 				</form>
+				<a href="{{ url_for('main.exportall') }}" title="export all games from lichess" class='button' id='exportall'>
+					Export all games from lichess</a>
 					<div class="userdatabase2">
 							<ul>
 								{% for folder in folders %}

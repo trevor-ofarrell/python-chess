@@ -34,7 +34,7 @@ def deletepgn():
 @main.route('/filterdb', methods=['POST'])
 def filterdb():
     Folder = request.form['folder']
-    Folder = "{}{}{}".format('ll', Folder, 'lll')
+    #Folder = "{}{}{}".format('ll', Folder, 'lll')
     gamelist = []
     games = db.session.query(pgn).all()
     for game in games:
@@ -43,8 +43,7 @@ def filterdb():
     pgns = db.session.query(pgn).filter_by(folder=Folder).all()
     for pg in pgns:
         pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder, 'frame': pg.frame, 'pgnId': pg.pgnId})
-    folderlist = [Folder]
-    return render_template('user_dashboard.html', games=gamelist, folders=folderlist, pgnlist=pgnlist)
+    return render_template('filterdb.html', games=gamelist, folder=Folder, pgnlist=pgnlist)
 
 @main.route('/dashboard')
 def dashboard():
@@ -128,7 +127,7 @@ def uploadpgn():
 
         if pgnfile:
             pgndata = pgnfile.read()    
-            new_pgn = pgn(game=pgndata, fileName="test", folder="system uploads")
+            new_pgn = pgn(game=pgndata, fileName=pgnfile.filename, folder="system uploads")
             db.session.add(new_pgn)
             db.session.commit()
     return redirect(url_for('main.dashboard'))

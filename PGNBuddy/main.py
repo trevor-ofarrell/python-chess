@@ -147,3 +147,7 @@ def exportall():
         db.session.commit()
         return redirect(url_for('main.dashboard'))
     return render_template('lichessexportall.html')
+
+@main.route('/nothingyet', methods=['GET', 'POST'])
+def nothingyet():
+    pass

@@ -97,6 +97,10 @@
 /* List Styles                                                                   */
 /*********************************************************************************/
 	
+	.actions
+	{
+		padding-right: 70px;
+	}
 	ul.actions li
 	{
 		display: inline-block;
@@ -217,7 +221,7 @@
 	#uploadlichess
 	{
 		position: absolute;
-		top: 160px;
+		top: 165px;
 		left: 5px;
 		width: 6.9%;
     	text-align: left;
@@ -231,7 +235,7 @@
 	#lichessliterate
 	{
 		position: absolute;
-		top: 262px;
+		top: 276px;
 		left: 5px;
 		width: 6.9%;
 		height: 55px;
@@ -246,7 +250,22 @@
 	#exportall
 	{
 		position: absolute;
-		top: 380px;
+		top: 400px;
+		left: 5px;
+		width: 6.9%;
+		height: 55px;
+		text-align: left;
+		margin-left: 20px;
+		border: 1px solid #ccc;
+    	display: inline-block;
+    	padding: 6px 12px;
+    	cursor: pointer;
+	}
+
+	#tbd
+	{
+		position: absolute;
+		top: 525px;
 		left: 5px;
 		width: 6.9%;
 		height: 55px;
@@ -391,7 +410,7 @@
 		top: 0px;
     	left: 0px;
 		background: rgb(129,129,129);
-		background: linear-gradient(180deg, rgba(111, 111, 111, 0.655) 0%, rgba(53, 53, 53, 0.924) 22%, rgba(0, 0, 0, 0.972) 100%); 
+		background: linear-gradient(180deg, rgba(77, 77, 77, 0.496) 0%, rgba(49, 49, 49, 0.882) 22%, rgba(0, 0, 0, 0.972) 100%); 
 		padding: 70px;
 		border-radius: 15px;
 	}
@@ -628,18 +647,18 @@
 		padding: 1.40em 3em;
 		font-family: Arial, Helvetica, sans-serif;
 		height: 5px;
-		border: 1px solid rgb(181, 181, 181);
+		border: 2px solid rgb(181, 181, 181);
 		border-radius: 4px;
 		text-decoration: none;
 		font-weight: 500;
 		text-align: left;
 		font-size: 1.5em;
 		color: #FFF;
-		background-color: #6f6f6f92;
+		background: linear-gradient(180deg, rgba(89, 89, 89, 0.689) 0%, rgba(43, 43, 43, 0.924) 22%, rgba(0, 0, 0, 0.972) 100%); 
 	}
 
 	.activedb, .newbutton:hover {
-		background-color: rgba(176, 176, 176, 0.765);
+		background-color: rgb(255, 255, 255);
 	}
 
 	.hiden

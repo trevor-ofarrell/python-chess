@@ -66,13 +66,15 @@ Released   : 20140314
 				</form>
 				<a href="{{ url_for('main.exportall') }}" title="export all games from lichess" class='button' id='exportall'>
 					Export all games from lichess</a>
+				<a href="{{ url_for('main.nothingyet') }}" title="" class='button' id='tbd'>
+					Doesnt do anything</a>
 					<div class="userdatabase2">
 							<ul>
 								{% for folder in folders %}
 								<li><h2 style="font-size: 25px; font-weight: 550;">{{ folder[2:-3] }}</h2>
 									<ol>
 									{% for pg in pgnlist %}
-										{% if pg['folder'] == folder[2:-3]%}
+										{% if pg['folder'] == folder[2:-3] %}
 											<script type="text/javascript">
 												$( function() {
 													$( "#accordion-{{ loop.index }}" ).accordion({

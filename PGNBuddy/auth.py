@@ -29,7 +29,8 @@ def login_post():
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
-    return redirect(url_for('main.dashboard'))
+    #return redirect(url_for('main.dashboard'))
+    return render_template("user_dashboard.html", current_user=user)
 
 @auth.route('/signup')
 def signup():

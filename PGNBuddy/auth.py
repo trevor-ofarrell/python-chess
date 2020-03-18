@@ -16,6 +16,7 @@ def login():
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
+    session['email'] = request.form['email']
     remember = True if request.form.get('remember') else False
 
     user = User.query.filter_by(email=email).first()
@@ -29,8 +30,8 @@ def login_post():
         return redirect(url_for('auth.login'))
 
     login_user(user, remember=remember)
-    #return redirect(url_for('main.dashboard'))
-    return render_template("user_dashboard.html", current_user=user)
+    return redirect(url_for('main.dashboard'))
+    #return render_template("user_dashboard.html", current_user=user)
 
 @auth.route('/signup')
 def signup():

@@ -5,6 +5,7 @@ from .models import User
 from .models import pgn
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 import requests
 import sys
 
@@ -47,16 +48,17 @@ def filterdb():
 
 @main.route('/dashboard')
 def dashboard():
+    current_user = User.query.filter_by(email=session['email']).first()
     gamelist = []
-    games = db.session.query(pgn).all()
+    games = db.session.query(pgn).filter_by(userId=current_user.id).all()
     for game in games:
         gamelist.append(game.game)
     pgnlist = []
-    pgns = db.session.query(pgn).all()
+    pgns = db.session.query(pgn).filter_by(userId=current_user.id).all()
     for pg in pgns:
         pgnlist.append({'name': str(pg.fileName), 'game': pg.game, 'folder': pg.folder, 'frame': pg.frame, 'pgnId': pg.pgnId})
     folderlist = []
-    folders = db.session.query(pgn.folder).all()
+    folders = db.session.query(pgn.folder).filter_by(userId=current_user.id).all()
     for folder in folders:
         folderlist.append(str(folder))
     folderlist = list(dict.fromkeys(folderlist))
@@ -65,14 +67,15 @@ def dashboard():
 @main.route('/lichessupload', methods=['POST', 'GET'])
 def lichessupload():
     if request.method == 'POST':
+        current_user = User.query.filter_by(email=session['email']).first()
         game_string = request.form['gamestring']
         if request.form['name']:
             game_name = request.form['name']
         game_folder = request.form['folder']
         lciframe = "https://lichess.org/embed/" + game_string + "?theme=auto&bg=auto"
-        print(lciframe, file=sys.stderr)
+        uid = current_user.id
         re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',game_string,'pgnInJson=true'))
-        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
+        new_pgn = pgn(userId=uid, game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
@@ -82,14 +85,15 @@ def lichessupload():
 @main.route('/lichessliterate', methods=['POST', 'GET'])
 def lichessliterate():
     if request.method == 'POST':
+        current_user = User.query.filter_by(email=session['email']).first()
+        uid = current_user.id
         game_string = request.form['gamestring']
-        re = requests.get("{}/{}?{}".format('https://lichess.org/game/export',game_string,'literate=true'))
+        re = requests.get("{}/{}".format('https://lichess.org/game/export', game_string), params={"clocks":"false", "literate":"true", "evals":"true"})
         if request.form['name']:
             game_name = request.form['name']
         game_folder = request.form['folder']
         lciframe = "{}{}{}".format("https://lichess.org/embed/", game_string, "?theme=auto&bg=auto")
-        print(lciframe, file=sys.stderr)
-        new_pgn = pgn(game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
+        new_pgn = pgn(userId=uid, game=re.text, fileName=game_name, folder=game_folder, frame=lciframe)
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
@@ -116,6 +120,8 @@ def mydatabase():
 @main.route('/uploadpgn', methods=['POST', 'GET'])
 def uploadpgn():
     if request.method == 'POST':
+        current_user = User.query.filter_by(email=session['email']).first()
+        uid = current_user.id
         if 'pgnfile' not in request.files:
             flash('No file found')
             return redirect(request.url)
@@ -127,7 +133,7 @@ def uploadpgn():
 
         if pgnfile:
             pgndata = pgnfile.read()    
-            new_pgn = pgn(game=pgndata, fileName=pgnfile.filename, folder="system uploads")
+            new_pgn = pgn(userId=uid, game=pgndata, fileName=pgnfile.filename, folder="system uploads")
             db.session.add(new_pgn)
             db.session.commit()
     return redirect(url_for('main.dashboard'))

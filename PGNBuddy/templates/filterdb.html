@@ -57,6 +57,10 @@ Released   : 20140314
 					Export PGN from lichess</a>
 				<a href="{{ url_for('main.lichessliterate') }}" title="Import literate PGN from lichess" class='button' id='lichessliterate'>
 					Export literate PGN from lichess</a>
+				<a href="{{ url_for('main.exportall') }}" title="export all games from lichess" class='button' id='exportall'>
+					Export all games from lichess</a>
+				<a href="{{ url_for('main.nothingyet') }}" title="" class='button' id='tbd'>
+					Doesnt do anything</a>
                     <form action="{{ url_for('main.filterdb') }}" method="POST" enctype="multipart/form-data">
                         <div id="filterbutton">
                             <label id="filterdb">Filter database by folder

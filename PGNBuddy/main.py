@@ -64,7 +64,10 @@ def filterdb():
 
 @main.route('/dashboard')
 def dashboard():
-    current_user = User.query.filter_by(email=session['email']).first()
+    try:
+        current_user = User.query.filter_by(email=session['email']).first()
+    except:
+        return render_template('webindex.html')
     games = db.session.query(pgn).filter_by(userId=current_user.id).all()
 
     gamelist = []
@@ -100,10 +103,14 @@ def dashboard():
 @main.route('/lichessupload', methods=['POST', 'GET'])
 def lichessupload():
     if request.method == 'POST':
+        try:
+            current_user = User.query.filter_by(email=session['email']).first()
+        except:
+            return render_template('webindex.html')
+
         if request.form['name']:
             game_name = request.form['name']
 
-        current_user = User.query.filter_by(email=session['email']).first()
         game_string = request.form['gamestring']
         game_folder = request.form['folder']
         lciframe = "https://lichess.org/embed/" + game_string + "?theme=auto&bg=auto"
@@ -124,6 +131,10 @@ def lichessupload():
         db.session.add(new_pgn)
         db.session.commit()
         return redirect(url_for('main.dashboard'))
+    try:
+        current_user = User.query.filter_by(email=session['email']).first()
+    except:
+        return render_template('webindex.html')
 
     return render_template('lichessupload.html')
 
@@ -131,7 +142,11 @@ def lichessupload():
 @main.route('/lichessliterate', methods=['POST', 'GET'])
 def lichessliterate():
     if request.method == 'POST':
-        current_user = User.query.filter_by(email=session['email']).first()
+        try:
+            current_user = User.query.filter_by(email=session['email']).first()
+        except:
+            return render_template('webindex.html')
+
         uid = current_user.id
         game_string = request.form['gamestring']
 
@@ -201,7 +216,11 @@ def mydatabase():
 @main.route('/uploadpgn', methods=['POST', 'GET'])
 def uploadpgn():
     if request.method == 'POST':
-        current_user = User.query.filter_by(email=session['email']).first()
+        try:
+            current_user = User.query.filter_by(email=session['email']).first()
+        except:
+            return render_template('webindex.html')
+
         uid = current_user.id
 
         if 'pgnfile' not in request.files:

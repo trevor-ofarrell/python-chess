@@ -112,6 +112,17 @@ def lichessupload():
             game_name = request.form['name']
 
         game_string = request.form['gamestring']
+        if str(game_string)[:5] == "liche":
+            game_string = game_string[12:]
+
+        if str(game_string)[:5] == "http:":
+            game_string = game_string[19:]
+            print(game_string, file=sys.stderr)
+
+        elif str(game_string)[:5] == "https":
+            game_string = game_string[20:]
+
+        game_string = game_string[:8]
         game_folder = request.form['folder']
         lciframe = "https://lichess.org/embed/" + game_string + "?theme=auto&bg=auto"
         uid = current_user.id
@@ -149,6 +160,18 @@ def lichessliterate():
 
         uid = current_user.id
         game_string = request.form['gamestring']
+
+        if str(game_string)[:5] == "liche":
+            game_string = game_string[12:]
+
+        if str(game_string)[:5] == "http:":
+            game_string = game_string[19:]
+            print(game_string, file=sys.stderr)
+
+        elif str(game_string)[:5] == "https":
+            game_string = game_string[20:]
+
+        game_string = game_string[:8]
 
         re = requests.get("{}/{}".format(
             'https://lichess.org/game/export',

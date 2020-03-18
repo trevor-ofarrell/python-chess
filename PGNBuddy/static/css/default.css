@@ -20,6 +20,12 @@
 		margin: 0;
 		padding: 0;
 	}
+
+	.hometitle
+	{
+		position: relative;
+		text-align: center;
+	}
 	
 	p, ol, ul
 	{
@@ -99,7 +105,8 @@
 	
 	.actions
 	{
-		padding-right: 70px;
+		padding-top: 30px;
+		padding-right: 0px;
 	}
 	ul.actions li
 	{
@@ -384,7 +391,7 @@
 	.title
 	{
 		margin-bottom: 3em;
-		padding-left: 65px;
+		padding-left: 115px;
 		width: 1000px;
 	}
 	
@@ -438,7 +445,7 @@
 	{
 		position: relative;
 		padding: 5em 0em 7em 0em;
-		background: #FFF;
+		background: rgb(7, 7, 7);
 	}
 
 /*********************************************************************************/
@@ -566,7 +573,8 @@
 	
 	.banner
 	{
-		margin-bottom: 5em;
+		margin-bottom: 2em;
+		margin-left: -50px;
 	}
 
 	.gamelist
@@ -793,7 +801,7 @@
 	#three-column .title h2
 	{
 		font-weight: bold;
-		color: rgba(0,0,0,0.8);
+		color: rgba(255, 255, 255, 0.8);
 	}
 
 	#three-column .title .byline

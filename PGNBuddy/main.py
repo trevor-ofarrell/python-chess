@@ -112,6 +112,8 @@ def lichessupload():
             game_name = request.form['name']
 
         game_string = request.form['gamestring']
+        print(len(game_string), file=sys.stderr)
+
         if str(game_string)[:5] == "liche":
             game_string = game_string[12:]
 
@@ -122,7 +124,9 @@ def lichessupload():
         elif str(game_string)[:5] == "https":
             game_string = game_string[20:]
 
-        game_string = game_string[:8]
+        if len(game_string) != 8:
+            game_string = game_string[:8]
+
         game_folder = request.form['folder']
         lciframe = "https://lichess.org/embed/" + game_string + "?theme=auto&bg=auto"
         uid = current_user.id
@@ -164,7 +168,7 @@ def lichessliterate():
         if str(game_string)[:5] == "liche":
             game_string = game_string[12:]
 
-        if str(game_string)[:5] == "http:":
+        elif str(game_string)[:5] == "http:":
             game_string = game_string[19:]
             print(game_string, file=sys.stderr)
 
@@ -295,3 +299,9 @@ def exportall():
 @main.route('/nothingyet', methods=['GET', 'POST'])
 def nothingyet():
     pass
+
+@main.route('/editpgn', methods=['GET', 'POST'])
+def editpgn():
+    pg = request.form['editpgn']
+    q = db.session.query(pgn).filter_by(pgnId=pg).one()
+    return render_template('editpgn.html', pgn=q.game)

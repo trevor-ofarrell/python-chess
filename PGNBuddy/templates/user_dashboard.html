@@ -71,7 +71,8 @@ Released   : 20140314
 					<div class="userdatabase2">
 							<ul>
 								{% for folder in folders %}
-								<li><h2 style="font-size: 25px; font-weight: 550;">{{ folder[2:-3] }}</h2>
+								<li class="dblistitem">
+								  <h2 style="font-size: 25px; font-weight: 550;">{{ folder[2:-3] }}</h2>
 									<ol>
 									{% for pg in pgnlist %}
 										{% if pg['folder'] == folder[2:-3] %}
@@ -90,11 +91,15 @@ Released   : 20140314
 												<div class="hiden">
 													<li><p>{{ pg['game'] }}</p></lii>
 													{% if pg['frame'] %}
-														<iframe src="{{ pg['frame'] }}" width=600 height=397 frameborder=0></iframe>
+														<iframe src="{{ pg['frame'] }}" width=760 height=500 frameborder=0 class="lichessiframe"></iframe>
 													{% endif %}
+													<form action="{{ url_for('main.editpgn') }}" method="post" class="editpgn">
+														<input type="hidden" value="{{ pg['pgnId'] }}" name="editpgn" />
+														<input type="submit" id="editpgn" value="Edit PGN" style="width: 65%;"/>
+													</form>
 													<form action="{{ url_for('main.deletepgn') }}" method="post" class="delpgn">
 														<input type="hidden" value="{{ pg['pgnId'] }}" name="pgntodel" />
-														<input type="submit" value="Delete PGN. This cannot be undone." style="width: 65%;"/>
+														<input type="submit" id="delpgn" value="Delete PGN. This cannot be undone." style="width: 65%;"/>
 													</form>
 												</div>
 											</div>

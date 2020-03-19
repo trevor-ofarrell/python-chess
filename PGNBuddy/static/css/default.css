@@ -702,6 +702,7 @@
 		left: 0px;
 		bottom: 0px;
 		padding-bottom: 0px;
+		z-index: 0;
 	}
 
 	.editpgn
@@ -713,6 +714,7 @@
 		left: 0px;
 		bottom: 0px;
 		padding-bottom: 120px;
+		z-index: 0;
 	}
 
 	#editpgn:hover, #delpgn:hover
@@ -750,6 +752,7 @@
 	{
 		margin-left: -450px;
 		margin-bottom: 100px;
+		z-index: 2;
 	}
 
 /*********************************************************************************/

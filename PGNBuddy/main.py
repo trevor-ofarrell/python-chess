@@ -278,6 +278,11 @@ def uploadpgn():
 @main.route('/exportall', methods=['GET', 'POST'])
 def exportall():
     if request.method == 'POST':
+        try:
+            current_user = User.query.filter_by(email=session['email']).first()
+        except:
+            return render_template('webindex.html')       
+        
         username = request.form['username']
         re = requests.get("{}{}".format(
             "https://lichess.org/api/games/user/",
@@ -285,7 +290,8 @@ def exportall():
             ), 
             params={
                 "pgnInJson": "true",
-                "max": "500"
+                "max": "500",
+                "opening": "true"
             },
             headers={
                 "Accept": "application/x-ndjson"
@@ -293,26 +299,80 @@ def exportall():
             stream=True
         )
         with open("Trevor_lichess_download.json", 'w') as fp:
-            #json.dump(re.json, fp)
-            fp.write(dict(re.text))
-        #print(re.text, file=sys.stderr)
-        for line in re.json():
-            print((line, type(line)), file=sys.stderr)
-            #time_stamp = line["createdAt"]
-            time_stamp = datetime.utcfromtimestamp(
-                time_stamp).strftime('%Y-%m-%d %H:%M:%S')
-            print(time_stamp, file=sys.stderr)
-            #db.session.commit()
-        return redirect(url_for('main.dashboard'))
+            fp.write(re.text)
+
+        with open("Trevor_lichess_download.json", 'r') as fp:
+            game_list = fp.readlines()
+
+        json_games = []
+        year_list = []
+        month_list = []
+        folderlist = []
+        for line in game_list:
+            line = json.loads(line)
+            time_stamp = int(line["createdAt"])
+            time_stamp = datetime.utcfromtimestamp(time_stamp/1000).strftime(
+                '%Y-%m-%d %H:%M:%S'
+            )
+            ts = int(line["createdAt"])
+            time_stamp2 = datetime.utcfromtimestamp(ts/1000).strftime(
+                '%Y'
+            )
+            time_stamp3 = datetime.utcfromtimestamp(ts/1000).strftime(
+                '%m'
+            )
+            json_games.append(line)
+            year_list.append(time_stamp2)
+            year_list = list(dict.fromkeys(year_list))
+            month_list.append(time_stamp3)
+            month_list = list(dict.fromkeys(month_list))   
+
+        uid = current_user.id
+        for game in json_games:
+            folder_name = datetime.utcfromtimestamp(game["createdAt"]/1000).strftime(
+                '%Y-%m'
+            )
+            game_date = datetime.utcfromtimestamp(game["createdAt"]/1000).strftime(
+                '%Y-%m-%d %H:%M:%S'
+            )
+            folder_name = "{} - {}".format("lichess upload", folder_name)
+            print(folder_name, file=sys.stderr)
+            lciframe = "{}{}{}".format(
+                "https://lichess.org/embed/",
+                game["id"],
+                "?theme=auto&bg=auto"
+            )
+            try:
+                new_pgn = pgn(
+                    userId=uid,
+                    game=game["pgn"],
+                    fileName="{} - {} - {} - id: {}".format(
+                        game["opening"]["name"],
+                        game["speed"],
+                        game_date,
+                        game["id"]
+                    ),
+                    folder=folder_name,
+                    frame=lciframe
+                )
+                db.session.add(new_pgn)
+                db.session.commit()
+            except:
+                pass
+        return render_template('user_dashboard.html')
     return render_template('lichessexportall.html')
 
 
 @main.route('/nothingyet', methods=['GET', 'POST'])
 def nothingyet():
-    pass
+    q = db.session.query(pgn).all()
+    for pg in q:
+        db.session.delete(pg)
+    db.session.commit()
+    return redirect(url_for("main.dashboard"))
 
 @main.route('/editpgn', methods=['GET', 'POST'])
 def editpgn():
     pg = request.form['editpgn']
     q = db.session.query(pgn).filter_by(pgnId=pg).one()
-    return render_template('editpgn.html', pgn=q.game)
+    return render_template('editpgn.html', pgn=q.game, pgnname=q.fileName)

@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 import requests
 import sys
+from datetime import datetime
 
 main = Blueprint('main', __name__)
 
@@ -117,7 +118,7 @@ def lichessupload():
         if str(game_string)[:5] == "liche":
             game_string = game_string[12:]
 
-        if str(game_string)[:5] == "http:":
+        elif str(game_string)[:5] == "http:":
             game_string = game_string[19:]
             print(game_string, file=sys.stderr)
 
@@ -175,7 +176,8 @@ def lichessliterate():
         elif str(game_string)[:5] == "https":
             game_string = game_string[20:]
 
-        game_string = game_string[:8]
+        if len(game_string) != 8:
+            game_string = game_string[:8]
 
         re = requests.get("{}/{}".format(
             'https://lichess.org/game/export',
@@ -277,21 +279,30 @@ def uploadpgn():
 def exportall():
     if request.method == 'POST':
         username = request.form['username']
-        folder = request.form['folder']
-    
         re = requests.get("{}{}".format(
             "https://lichess.org/api/games/user/",
             username
-        ), stream=True)
-
-        for line in re.iter_lines():
-            if line in ['\n', '\r\n']:
-                if line.next in ['\n', '\r\n']:
-                    newpg = re.text.split()
-                    new_pgn = pgn(
-                        game=newpg, fileName='lichessalltest', folder='lichess all')
-                    db.session.add(new_pgn)
-        db.session.commit()
+            ), 
+            params={
+                "pgnInJson": "true",
+                "max": "500"
+            },
+            headers={
+                "Accept": "application/x-ndjson"
+            },
+            stream=True
+        )
+        with open("Trevor_lichess_download.json", 'w') as fp:
+            #json.dump(re.json, fp)
+            fp.write(dict(re.text))
+        #print(re.text, file=sys.stderr)
+        for line in re.json():
+            print((line, type(line)), file=sys.stderr)
+            #time_stamp = line["createdAt"]
+            time_stamp = datetime.utcfromtimestamp(
+                time_stamp).strftime('%Y-%m-%d %H:%M:%S')
+            print(time_stamp, file=sys.stderr)
+            #db.session.commit()
         return redirect(url_for('main.dashboard'))
     return render_template('lichessexportall.html')
 

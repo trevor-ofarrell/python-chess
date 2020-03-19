@@ -679,8 +679,6 @@
 
 	.activedb, .newbutton:hover {
 		background-color: rgb(255, 255, 255);
-		border-width: 4px;
-		margin-top: .2em;
 	}
 
 	.hiden

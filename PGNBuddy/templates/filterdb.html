@@ -38,7 +38,6 @@ Released   : 20140314
 				<li class="active"><a href="{{url_for('main.dashboard')}}" accesskey="2" title="">Dashboard</a></li>
 				<li><a href="{{url_for('main.home')}}" accesskey="1" title="">Homepage</a></li>
 				<li><a href="#" accesskey="3" title="">About Us</a></li>
-				<li><a href="#" accesskey="5" title="">Contact Us</a></li>
 			</ul>
 		</div>
 	</div>
@@ -91,13 +90,21 @@ Released   : 20140314
 													{% if pg['frame'] %}
 														<iframe src="{{ pg['frame'] }}" width=760 height=500 frameborder=0 class="lichessiframe"></iframe>
 													{% endif %}
+													<form action="{{ url_for('main.downloadpgn') }}" method="post" class="downloadpgn">
+														<input type="hidden" value="{{ pg['pgnId'] }}" name="downloadpgn" />
+														<input type="submit" id="downloadpgn" value="Download PGN" style="width: 65%;"/>
+													</form>
+													<form action="{{ url_for('main.downloadjsonpgn') }}" method="post" class="downloadjsonpgn">
+														<input type="hidden" value="{{ pg['pgnId'] }}" name="downloadpgn" />
+														<input type="submit" id="downloadjsonpgn" value="Download JSON PGN" style="width: 65%;"/>
+													</form>
 													<form action="{{ url_for('main.editpgn') }}" method="post" class="editpgn">
 														<input type="hidden" value="{{ pg['pgnId'] }}" name="editpgn" />
 														<input type="submit" id="editpgn" value="Edit PGN" style="width: 65%;"/>
 													</form>
 													<form action="{{ url_for('main.deletepgn') }}" method="post" class="delpgn">
 														<input type="hidden" value="{{ pg['pgnId'] }}" name="pgntodel" />
-														<input type="submit" value="Delete PGN. This cannot be undone." style="width: 65%;"/>
+														<input type="submit" id="delpgn" value="Delete PGN. This cannot be undone." style="width: 65%;"/>
 													</form>
 												</div>
 											</div>

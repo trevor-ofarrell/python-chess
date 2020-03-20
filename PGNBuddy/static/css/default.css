@@ -26,7 +26,21 @@
 		position: relative;
 		text-align: center;
 	}
+
+	.hometitle2
+	{
+		position: relative;
+		text-align: center;
+		font-weight: 400;
+		margin-left: 60px;
+		margin-top: -150px;
+	}
 	
+	.byline
+	{
+		margin-left: 60px;
+	}
+
 	p, ol, ul
 	{
 		margin-top: 0;
@@ -443,6 +457,21 @@
 		border-radius: 15px;
 	}
 	
+	.titlebox-dash3
+	{
+		position: relative;
+		margin-left: 55px;
+		margin-top: -60px;
+		width: 85%;
+		height: 575px;
+		top: 0px;
+    	left: 0px;
+		background: rgb(129,129,129);
+		background: linear-gradient(180deg, rgba(46, 46, 46, 0.607) 0%, rgba(31, 31, 31, 0.938) 22%, rgb(0, 0, 0) 100%); 
+		padding: 70px;
+		border-radius: 15px;
+	}
+	
 	.title h2
 	{
 		font-size: 2.7em;
@@ -630,10 +659,11 @@
 	{
 		position: relative;
 		overflow-y: scroll;
+		overflow-x: hidden;
 		scrollbar-color: rgba(17, 17, 17, 0.889) rgba(46, 46, 46, 0.538);
 		scrollbar-width: 20px;
 		width: 1285px;
-		height: 705px;
+		height: 712px;
 		margin-top: -228px;
 		border: gray;
 		border-width: 3px;
@@ -732,7 +762,31 @@
 		z-index: 0;
 	}
 
-	#editpgn:hover, #delpgn:hover
+	.downloadpgn
+	{
+		position: relative;
+		width: 42em;
+		margin-left: 700px;
+		margin-top: -340px;
+		left: 0px;
+		bottom: 0px;
+		padding-bottom: 259px;
+		z-index: 0;
+	}
+
+	.downloadjsonpgn
+	{
+		position: relative;
+		width: 42em;
+		margin-left: 700px;
+		margin-top: -290px;
+		left: 0px;
+		bottom: 0px;
+		padding-bottom: 189px;
+		z-index: 0;
+	}
+
+	#downloadjsonpgn:hover, #downloadpgn:hover, #editpgn:hover, #delpgn:hover
 	{
 		background-color: #717171;
 	}
@@ -777,6 +831,7 @@
 		position: relative;
 		margin-right: 20px;
 		margin-left: 20px;
+		margin-top: 20px;
 	}
 
 /*********************************************************************************/

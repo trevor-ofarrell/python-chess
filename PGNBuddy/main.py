@@ -389,3 +389,11 @@ def editpgn():
     pg = request.form['editpgn']
     q = db.session.query(pgn).filter_by(pgnId=pg).one()
     return render_template('editpgn.html', pgn=q.game, pgnname=q.fileName)
+
+@main.route('/downloadjsonpgn', methods=['GET', 'POST'])
+def downloadjsonpgn():
+    pass
+
+@main.route('/downloadpgn', methods=['GET', 'POST'])
+def downloadpgn():
+    pass

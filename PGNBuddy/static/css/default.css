@@ -423,7 +423,22 @@
 		top: 0px;
     	left: 0px;
 		background: rgb(129,129,129);
-		background: linear-gradient(180deg, rgba(82, 82, 82, 0.365) 0%, rgba(49, 49, 49, 0.91) 22%, rgba(0, 0, 0, 0.972) 100%); 
+		background: linear-gradient(180deg, rgba(82, 82, 82, 0.558) 0%, rgba(49, 49, 49, 0.945) 22%, rgba(0, 0, 0, 0.972) 100%); 
+		padding: 70px;
+		border-radius: 15px;
+	}
+
+	.titlebox-dash2
+	{
+		position: relative;
+		margin-left: 55px;
+		margin-top: -60px;
+		width: 85%;
+		height: 575px;
+		top: 0px;
+    	left: 0px;
+		background: rgb(129,129,129);
+		background: linear-gradient(180deg, rgba(65, 65, 65, 0.607) 0%, rgba(31, 31, 31, 0.91) 22%, rgba(0, 0, 0, 0.972) 100%); 
 		padding: 70px;
 		border-radius: 15px;
 	}
@@ -753,6 +768,15 @@
 		margin-left: -450px;
 		margin-bottom: 100px;
 		z-index: 2;
+	}
+
+	#editbutton
+	{
+		width: 40%;
+		display: -moz-inline-stack;
+		position: relative;
+		margin-right: 20px;
+		margin-left: 20px;
 	}
 
 /*********************************************************************************/

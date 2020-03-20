@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from flask import *
+from flask import Flask
 from . import db
 from .models import User
 from .models import pgn
@@ -9,9 +10,9 @@ from sqlalchemy.sql import func
 import requests
 import sys
 from datetime import datetime
+import time
 
 main = Blueprint('main', __name__)
-
 
 @main.route('/')
 def index():
@@ -284,14 +285,27 @@ def exportall():
             return render_template('webindex.html')       
         
         username = request.form['username']
+        if request.form['exportamount']:
+            gamelen = int(request.form["exportamount"])
+        gamelen = "null"
+
+        startdate = request.form['startdate']
+        startdate = time.mktime(time.strptime(startdate, "%m/%d/%Y"))
+
+        enddate = request.form['enddate']
+        enddate = time.mktime(time.strptime(enddate, "%m/%d/%Y"))
+        print((startdate * 1000, enddate * 1000), file=sys.stderr)
+
         re = requests.get("{}{}".format(
             "https://lichess.org/api/games/user/",
             username
             ), 
             params={
                 "pgnInJson": "true",
-                "max": "500",
-                "opening": "true"
+                "opening": "true",
+                "since": int(startdate) * 1000,
+                "until": int(enddate) * 1000,
+                "max": gamelen
             },
             headers={
                 "Accept": "application/x-ndjson"
@@ -336,7 +350,6 @@ def exportall():
                 '%Y-%m-%d %H:%M:%S'
             )
             folder_name = "{} - {}".format("lichess upload", folder_name)
-            print(folder_name, file=sys.stderr)
             lciframe = "{}{}{}".format(
                 "https://lichess.org/embed/",
                 game["id"],
@@ -359,7 +372,7 @@ def exportall():
                 db.session.commit()
             except:
                 pass
-        return render_template('user_dashboard.html')
+        return redirect(url_for('main.dashboard'))
     return render_template('lichessexportall.html')
 
 

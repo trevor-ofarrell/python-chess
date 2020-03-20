@@ -43,7 +43,7 @@ Released   : 20140314
 	</div>
 	<div class="titlebox-dash">
 		<div id="banner" class="container">
-			<div class="title">
+			<div class="title1">
 				<form action="{{ url_for('main.uploadpgn') }}" method="POST" enctype="multipart/form-data">
 					<div>
 						<label class="button" id="uploadpgn">
@@ -74,7 +74,7 @@ Released   : 20140314
 								{% endif %}
 								{% for folder in folders %}
 								<li class="dblistitem">
-								  <h2 style="font-size: 25px; font-weight: 550;">{{ folder[2:-3] }}</h2>
+								  <h2 style="font-size: 28px; font-weight: 550; padding-top: 7px; padding-bottom: 7px;">{{ folder[2:-3] }}</h2>
 									<ol>
 									{% for pg in pgnlist %}
 										{% if pg['folder'] == folder[2:-3] %}
@@ -89,9 +89,9 @@ Released   : 20140314
 												});
 											</script>
 											<div id="accordion-{{loop.index}}" class="accordionbutton">
-												<h2 class="newbutton" style="font-size: 16px; width: 90%;">{{ pg.name }}</h2>
+												<h2 class="newbutton" style="font-size: 17px; width: 90%;">{{ pg.name }}</h2>
 												<div class="hiden">
-													<li><p>{{ pg['game'] }}</p></lii>
+													<li style="padding-top: 10px; padding-bottom: 15px;"><p>{{ pg['game'] }}</p></li>
 													{% if not pg['frame'] %}
 														<div style="margin-top: 400px;"></div>
 													{% endif %}

@@ -353,7 +353,7 @@ def exportall():
             lciframe = "{}{}{}".format(
                 "https://lichess.org/embed/",
                 game["id"],
-                "?theme=auto&bg=auto"
+                "?theme=wood4&bg=dark"
             )
             try:
                 new_pgn = pgn(

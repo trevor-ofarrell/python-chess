@@ -200,6 +200,7 @@
 		font-weight: 700;
 		font-size: 1em;
 		color: #FFF;
+		background: linear-gradient(180deg, rgba(166, 166, 166, 0.462) 0%, rgba(53, 53, 53, 0.414) 22%, rgba(0, 0, 0, 0.758) 100%); 
 	}
 
 	#filterdb
@@ -409,6 +410,13 @@
 /*********************************************************************************/
 
 	.title
+	{
+		margin-bottom: 3em;
+		padding-left: 110px;
+		width: 1000px;
+	}
+
+	.title1
 	{
 		margin-bottom: 3em;
 		padding-left: 70px;
@@ -666,7 +674,7 @@
 		height: 712px;
 		margin-top: -228px;
 		border: gray;
-		border-width: 3px;
+		border-width: 2px;
 		padding-left: 2px;
 		padding-right: 30px;
 	}
@@ -711,7 +719,8 @@
 		margin-top: .2em;
 		padding: 1.40em 3em;
 		font-family: Arial, Helvetica, sans-serif;
-		height: 5px;
+		height: 3px;
+		width: 100%;
 		border: 2px solid rgb(181, 181, 181);
 		border-radius: 4px;
 		text-decoration: none;
@@ -719,11 +728,11 @@
 		text-align: left;
 		font-size: 1.5em;
 		color: #FFF;
-		background: linear-gradient(180deg, rgba(111, 111, 111, 0.689) 0%, rgba(44, 44, 44, 0.924) 22%, rgba(0, 0, 0, 0.972) 100%); 
+		background: linear-gradient(180deg, rgba(77, 76, 76, 0.689) 0%, rgba(36, 35, 35, 0.924) 22%, rgba(0, 0, 0, 0.972) 100%); 
 	}
 
 	.activedb, .newbutton:hover {
-		background-color: rgb(255, 255, 255);
+		background: linear-gradient(180deg, rgba(123, 123, 123, 0.689) 0%, rgba(56, 56, 56, 0.924) 22%, rgba(22, 22, 22, 0.972) 100%); 
 	}
 
 	.hiden
@@ -748,6 +757,11 @@
 		bottom: 0px;
 		padding-bottom: 0px;
 		z-index: 0;
+	}
+
+	#delpgn
+	{
+		background-color: #87020270;
 	}
 
 	.editpgn
@@ -786,14 +800,20 @@
 		z-index: 0;
 	}
 
-	#downloadjsonpgn:hover, #downloadpgn:hover, #editpgn:hover, #delpgn:hover
+	#downloadjsonpgn:hover, #downloadpgn:hover, #editpgn:hover
 	{
 		background-color: #717171;
 	}
 
+	#delpgn:hover
+	{
+		background-color: rgba(0, 128, 0, 0.558);
+		border: 2px solid rgba(255, 0, 0, 0.551);
+	}
+
 	.button:hover
 	{
-		background-color: #1d1d1d;
+		background: linear-gradient(180deg, rgba(80, 80, 80, 0.689) 0%, rgba(53, 53, 53, 0.924) 22%, rgba(12, 12, 12, 0.972) 100%); 
 	}
 
 	.filterbutton
@@ -819,7 +839,7 @@
 
 	.lichessiframe
 	{
-		margin-left: -450px;
+		margin-left: -465px;
 		margin-bottom: 100px;
 		z-index: 2;
 	}
